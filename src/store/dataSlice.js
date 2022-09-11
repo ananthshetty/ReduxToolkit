@@ -5,21 +5,38 @@ export const dataSlice = createSlice({
   name: "data",
   initialState: {
     data: [],
+    isLoading: false
   },
   reducers: {
+    isLoading: (state) => {
+      state.isLoading = true;
+    },
+
     isSuccess: (state, action) => {
+      state.isLoading = false;
       state.data = [...action.payload];
-    }
+    },
+    isFailure: (state) => {
+      state.isLoading = false;
+      state.errors = true;
+    }   
   },
 });
 
-export const { isSuccess} = dataSlice.actions;
-
-
-export const getData = () => (dispatch)=>{
+export const { isLoading,isSuccess,isFailure} = dataSlice.actions;
+export const getUsers = () => (dispatch)=>{
+    dispatch(isLoading());
     api.get('/users')
-    .then((res)=>dispatch(isSuccess(res.data)))
-    .catch((err)=>console.log(err))
+    .then((res)=>{
+      dispatch(isSuccess(res.data));
+    })
+    .catch((err)=> dispatch(isFailure()))
+}
+
+export const getPosts = () => (dispatch)=>{
+  api.get('/users')
+  .then((res)=>dispatch(isSuccess(res.data)))
+  .catch((err)=>console.log(err))
 }
 
 export default dataSlice.reducer;

@@ -5,7 +5,20 @@
   justify-content: center;
   align-items: center;
 }
-
+#tableContainer{
+  height: 30vh;
+  width: 40vw;
+  /* background-color: grey; */
+  display: flex;
+  justify-content: center;
+  align-items:flex-start;
+}
+tr{
+  display: grid;
+  flex-flow: row nowrap;
+  width: 100%;
+  grid-template-columns: 4vw 4vw 10vw 10vw 12vw;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
